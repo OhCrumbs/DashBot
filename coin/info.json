@@ -1,8 +1,0 @@
-{
-    "author" : ["saurichable, Crumbs"],
-    "install_msg" : "Thank you for installing my cog!",
-    "name" : "Coins",
-    "short" : "Collect coins.",
-    "description" : "Collect coins.",
-    "tags" : ["coins", "currency"]
-}
