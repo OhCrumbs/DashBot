@@ -71,7 +71,7 @@ class coins(commands.Cog):
             next_coin = cur_time + await self.config.guild(ctx.guild).cooldown()
             await self.config.member(ctx.author).next_coin.set(next_coin)
             await self.config.member(ctx.author).coins.set(coins)
-            await ctx.send(f"Here is your {amount} :coin:")
+            await ctx.send(f"Here is your {amount} :dashcoin:")
         else:
             dtime = self.display_time(next_coin - cur_time)
             await ctx.send(f"Uh oh, you have to wait {dtime}.")
