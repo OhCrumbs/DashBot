@@ -17,7 +17,7 @@ from redbot.core.bot import Red
 _MAX_BALANCE = 2 ** 63 - 1
 
 
-class Coin(commands.Cog):
+class Coins(commands.Cog):
     """
     Collect Coins.
     """
