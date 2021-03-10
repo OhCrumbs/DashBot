@@ -294,8 +294,8 @@ class Coins(commands.Cog):
                 f"Members will receive a random amount of coins between {minimum} and {maximum}."
             )
 
-    @setcoin.command(name="cooldown", aliases=["cd"])
-    async def setcoin_cd(self, ctx: commands.Context, seconds: int):
+    @setcoins.command(name="cooldown", aliases=["cd"])
+    async def setcoins_cd(self, ctx: commands.Context, seconds: int):
         """Set the cooldown for `[p]coin`.
         This is in seconds! Default is 86400 seconds (24 hours)."""
         if seconds <= 0:
@@ -303,8 +303,8 @@ class Coins(commands.Cog):
         await self.config.guild(ctx.guild).cooldown.set(seconds)
         await ctx.send(f"Set the cooldown to {seconds} seconds.")
 
-    @setcoin.command(name="stealcooldown", aliases=["stealcd"])
-    async def setcoin_stealcd(self, ctx: commands.Context, seconds: int):
+    @setcoins.command(name="stealcooldown", aliases=["stealcd"])
+    async def setcoins_stealcd(self, ctx: commands.Context, seconds: int):
         """Set the cooldown for `[p]steal`.
         This is in seconds! Default is 43200 seconds (12 hours)."""
         if seconds <= 0:
@@ -312,8 +312,8 @@ class Coins(commands.Cog):
         await self.config.guild(ctx.guild).stealcd.set(seconds)
         await ctx.send(f"Set the cooldown to {seconds} seconds.")
 
-    @setcoin.command(name="steal")
-    async def setcoin_steal(self, ctx: commands.Context, on_off: bool = None):
+    @setcoins.command(name="steal")
+    async def setcoins_steal(self, ctx: commands.Context, on_off: bool = None):
         """Toggle coin stealing for current server. 
         If `on_off` is not provided, the state will be flipped."""
         target_state = (
