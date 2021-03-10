@@ -173,7 +173,7 @@ class Coins(commands.Cog):
 
     @commands.command(aliases=["jar"])
     @commands.guild_only()
-    async def coin(self, ctx: commands.Context, target: discord.Member = None):
+    async def coins(self, ctx: commands.Context, target: discord.Member = None):
         """Check how many coins you have."""
         if not target:
             coins = int(await self.config.member(ctx.author).coins())
