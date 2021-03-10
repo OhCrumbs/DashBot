@@ -71,7 +71,7 @@ class Coins(commands.Cog):
             next_coin = cur_time + await self.config.guild(ctx.guild).cooldown()
             await self.config.member(ctx.author).next_coin.set(next_coin)
             await self.config.member(ctx.author).coins.set(coins)
-            await ctx.send(f"Here is your {amount} :cookie:")
+            await ctx.send(f"Here is your {amount} :dashcoin:")
         else:
             dtime = self.display_time(next_coin - cur_time)
             await ctx.send(f"Uh oh, you have to wait {dtime}.")
@@ -101,7 +101,7 @@ class Coins(commands.Cog):
         target_coins = int(await self.config.member(target).coins())
         if target_coins == 0:
             return await ctx.send(
-                f"Uh oh, {target.display_name} doesn't have any :cookie:"
+                f"Uh oh, {target.display_name} doesn't have any :dashcoin:"
             )
 
         await self.config.member(ctx.author).next_steal.set(cur_time + await self.config.guild(ctx.guild).stealcd())
@@ -119,7 +119,7 @@ class Coins(commands.Cog):
                     f"You stole any coin of {target.display_name}."
                 )
             target_coins -= stolen
-            await ctx.send(f"You stole {stolen} :cookie: from {target.display_name}!")
+            await ctx.send(f"You stole {stolen} :dashcoin: from {target.display_name}!")
         else:
             coins_penalty = int(author_coins * 0.25)
             if coins_penalty == 0:
@@ -130,18 +130,18 @@ class Coins(commands.Cog):
                     penalty = author_coins
                 if self._max_balance_check(target_coins + penalty):
                     return await ctx.send(
-                        f"Uh oh, you got caught while trying to steal {target.display_name}'s :cookie:\n"
+                        f"Uh oh, you got caught while trying to steal {target.display_name}'s :dashcoin:\n"
                         f"{target.display_name} has reached the maximum amount of coins, "
                         "so you haven't lost any."
                     )
                 author_coins -= penalty
                 target_coins += penalty
                 await ctx.send(
-                    f"You got caught while trying to steal {target.display_name}'s :cookie:\nYour penalty is {penalty} :cookie: which they got!"
+                    f"You got caught while trying to steal {target.display_name}'s :dashcoin:\nYour penalty is {penalty} :dashcoin: which they got!"
                 )
             else:
                 return await ctx.send(
-                    f"Uh oh, you got caught while trying to steal {target.display_name}'s :cookie:\n"
+                    f"Uh oh, you got caught while trying to steal {target.display_name}'s :dashcoin:\n"
                     f"You don't have any coins, so you haven't lost any."
                 )
         await self.config.member(target).coins.set(target_coins)
@@ -168,7 +168,7 @@ class Coins(commands.Cog):
         await self.config.member(ctx.author).coins.set(author_coins)
         await self.config.member(target).coins.set(target_coins)
         await ctx.send(
-            f"{ctx.author.mention} has gifted {amount} :cookie: to {target.mention}"
+            f"{ctx.author.mention} has gifted {amount} :dashcoin: to {target.mention}"
         )
 
     @commands.command(aliases=["jar"])
@@ -177,10 +177,10 @@ class Coins(commands.Cog):
         """Check how many coins you have."""
         if not target:
             coins = int(await self.config.member(ctx.author).coins())
-            await ctx.send(f"You have {coins} :cookie:")
+            await ctx.send(f"You have {coins} :dashcoin:")
         else:
             coins = int(await self.config.member(target).coins())
-            await ctx.send(f"{target.display_name} has {coins} :cookie:")
+            await ctx.send(f"{target.display_name} has {coins} :dashcoin:")
 
     @commands.command()
     @commands.guild_only()
@@ -200,7 +200,7 @@ class Coins(commands.Cog):
         coins += new_coins
         await self.config.member(ctx.author).coin.set(coins)
         currency = await bank.get_currency_name(ctx.guild)
-        await ctx.send(f"You have exchanged {amount} {currency} and got {new_coins} :cookie:\nYou now have {coins} :cookie:")
+        await ctx.send(f"You have exchanged {amount} {currency} and got {new_coins} :dashcoin:\nYou now have {coins} :dashcoin:")
 
     @commands.command(aliases=["coinleaderboard"])
     @commands.guild_only()
@@ -339,7 +339,7 @@ class Coins(commands.Cog):
                 f"Uh oh, amount can't be greater than {_MAX_BALANCE:,}."
             )
         await self.config.member(target).coins.set(amount)
-        await ctx.send(f"Set {target.mention}'s balance to {amount} :cookie:")
+        await ctx.send(f"Set {target.mention}'s balance to {amount} :dashcoin:")
 
     @setcoins.command(name="add")
     async def setcoins_add(
@@ -355,7 +355,7 @@ class Coins(commands.Cog):
                 f"Uh oh, {target.display_name} has reached the maximum amount of coins."
             )
         await self.config.member(target).coins.set(target_coins)
-        await ctx.send(f"Added {amount} :cookie: to {target.mention}'s balance.")
+        await ctx.send(f"Added {amount} :dashcoin: to {target.mention}'s balance.")
 
     @setcoins.command(name="take")
     async def setcoins_take(
@@ -369,7 +369,7 @@ class Coins(commands.Cog):
             target_coins -= amount
             await self.config.member(target).coins.set(target_coins)
             await ctx.send(
-                f"Took away {amount} :cookie: from {target.mention}'s balance."
+                f"Took away {amount} :dashcoin: from {target.mention}'s balance."
             )
         else:
             await ctx.send(f"{target.mention} doesn't have enough :cookies:")
@@ -396,7 +396,7 @@ class Coins(commands.Cog):
         await self.config.guild(ctx.guild).rate.set(rate)
         currency = await bank.get_currency_name(ctx.guild)
         test_amount = 100*rate
-        await ctx.send(f"Set the exchange rate {rate}. This means that 100 {currency} will give you {test_amount} :cookie:")
+        await ctx.send(f"Set the exchange rate {rate}. This means that 100 {currency} will give you {test_amount} :dashcoin:")
 
     @setcoins.group(autohelp=True)
     async def role(self, ctx):
@@ -411,19 +411,19 @@ class Coins(commands.Cog):
         if amount <= 0:
             return await ctx.send("Uh oh, amount has to be more than 0.")
         await self.config.role(role).coins.set(amount)
-        await ctx.send(f"Gaining {role.name} will now give {amount} :cookie:")
+        await ctx.send(f"Gaining {role.name} will now give {amount} :dashcoin:")
 
     @role.command(name="del")
     async def setcoins_role_del(self, ctx: commands.Context, role: discord.Role):
         """Delete coins for role."""
         await self.config.role(role).coins.set(0)
-        await ctx.send(f"Gaining {role.name} will now not give any :cookie:")
+        await ctx.send(f"Gaining {role.name} will now not give any :dashcoin:")
 
     @role.command(name="show")
     async def setcoins_role_show(self, ctx: commands.Context, role: discord.Role):
         """Show how many coins a role gives."""
         coins = int(await self.config.role(role).coins())
-        await ctx.send(f"Gaining {role.name} gives {coins} :cookie:")
+        await ctx.send(f"Gaining {role.name} gives {coins} :dashcoin:")
 
     @role.command(name="multiplier")
     async def setcoins_role_multiplier(
@@ -435,7 +435,7 @@ class Coins(commands.Cog):
         if multiplier <= 0:
             return await ctx.send("Uh oh, multiplier has to be more than 0.")
         await self.config.role(role).multiplier.set(multiplier)
-        await ctx.send(f"Users with {role.name} will now get {multiplier} times more :cookie:")
+        await ctx.send(f"Users with {role.name} will now get {multiplier} times more :dashcoin:")
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
