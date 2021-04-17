@@ -1,0 +1,9 @@
+{
+    "author" : ["saurichable, Crumbs"],
+    "install_msg" : "Cog Installed!",
+    "name" : "CoinStore",
+    "short" : "Additional store to Coin cog.",
+    "description" : "Additional store to Coin cog.",
+    "tags" : ["coins", "shop", "store"],
+    "required_cogs": {"Cookies": "https://github.com/OhCrumbs/DashBot/tree/master/coin"}
+}
